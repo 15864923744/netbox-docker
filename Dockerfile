@@ -25,6 +25,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
 
 ARG NETBOX_PATH
 COPY ${NETBOX_PATH}/requirements.txt requirements-container.txt /
+COPY plugin_requirements.txt /    # 添加这行 
 ENV VIRTUAL_ENV=/opt/netbox/venv
 RUN \
     # Gunicorn is not needed because we use Granian
@@ -37,7 +38,8 @@ RUN \
     sed -i -e 's/django-storages/django-storages\[azure,boto3,dropbox,google,libcloud,sftp\]/g' /requirements.txt && \
     /usr/local/bin/uv pip install \
       -r /requirements.txt \
-      -r /requirements-container.txt
+      -r /requirements-container.txt \
+      -r /plugin_requirements.txt   # 添加这行 
 
 ###
 # Main stage
@@ -66,6 +68,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
 
 # Copy the modified 'requirements*.txt' files, to have the files actually used during installation
 COPY --from=builder /requirements.txt /requirements-container.txt /opt/netbox/
+COPY --from=builder /plugin_requirements.txt /opt/netbox/   # 添加这行 
 COPY --from=builder /usr/local/bin/uv /usr/local/bin/
 COPY --from=builder /opt/netbox/venv /opt/netbox/venv
 
