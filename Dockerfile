@@ -25,7 +25,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
 
 ARG NETBOX_PATH
 COPY ${NETBOX_PATH}/requirements.txt requirements-container.txt /
-COPY plugin_requirements.txt /    # 添加这行 
+COPY ${NETBOX_PATH}/plugin_requirements.txt /    # 添加这行 
 ENV VIRTUAL_ENV=/opt/netbox/venv
 RUN \
     # Gunicorn is not needed because we use Granian
