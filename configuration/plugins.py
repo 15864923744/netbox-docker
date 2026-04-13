@@ -19,7 +19,7 @@ PLUGINS = [
 PLUGINS_CONFIG = {
     "netbox_diode_plugin": {
         # Diode gRPC target for communication with Diode server
-        "diode_target_override": "grpc://localhost:8080/diode",
+        "diode_target_override": "grpc://diode-diode-auth-1:8080/diode",
 
         # Username associated with changes applied via plugin
         "diode_username": "diode-ingest",
