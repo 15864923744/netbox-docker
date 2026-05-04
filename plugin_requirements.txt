@@ -1,1 +1,2 @@
 netboxlabs-diode-netbox-plugin
+netboxlabs-netbox-branching
